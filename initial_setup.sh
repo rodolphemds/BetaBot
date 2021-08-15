@@ -40,7 +40,7 @@ sudo apt install ros-${ros_version}-desktop-full -y;
 # Environment setup
 echo "source /opt/ros/${ros_version}/setup.bash" >> ~/.bashrc;
 # Dependencies for building packages
-sudo apt install python-rosdep python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential  python-catkin-tools -y;
+sudo apt install python-pip python3 python3-pip python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential  python-catkin-tools -y;
 sudo rosdep init;
 rosdep update;
 # Install other packages
@@ -61,11 +61,11 @@ echo "### Installing ROS... Done ###";
 install_packages()
 {
 echo "### Installing other usefull packages... ###";
-sudo add-apt-repository ppa:hardkernel/ppa;
+sudo add-apt-repository ppa:hardkernel/ppa -y;
 sudo apt-get update;
 sudo apt-get upgrade -y;
 sudo apt-get dist-upgrade -y;
-sudo apt-get install libnfs11 libcec odroid-wiringpi-python software-properties-common odroid-wiringpi libwiringpi-dev libwiringpi2 usbutils wget git alsa-utils xterm unzip software-properties-common firefox cheese xz-utils tar tightvncserver python3-pip locate python3 blueman streamer python-pip smbclient samba system-config-samba chrony ntpdate -y;
+sudo apt-get install libnfs11 libcec odroid-wiringpi-python software-properties-common odroid-wiringpi libwiringpi-dev libwiringpi2 usbutils wget git alsa-utils xterm unzip software-properties-common firefox cheese xz-utils tar tightvncserver  locate blueman streamer smbclient samba system-config-samba chrony ntpdate -y;
 sudo apt-get autoremove -y;
 sudo apt-get autoclean -y;
 # End
