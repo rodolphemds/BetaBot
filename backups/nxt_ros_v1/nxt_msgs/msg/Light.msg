@@ -1,0 +1,3 @@
+Header header
+float64 ambiant_light_intensity
+float64 active_light_intensity

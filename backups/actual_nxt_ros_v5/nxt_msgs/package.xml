@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>nxt_msgs</name>
+  <version>5.0.0</version>
+  <description>
+    The nxt_msgs package contains a set of messages to publish
+    data coming from various NXT sensors and NXT motors commands.
+  </description>
+
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe Matias de Sousa</maintainer>
+  <author>Rodolphe Matias de Sousa</author>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>message_runtime</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+</package>

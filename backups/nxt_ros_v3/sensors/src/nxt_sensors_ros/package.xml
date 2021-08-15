@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>nxt_sensors_ros</name>
+  <version>2.0.0</version>
+  <description>
+    The nxt_sensors_ros package provides the bindings between the NXT world
+    and the ROS world on the robot.  This package will create a ROS topic
+    for each NXT sensor, and publish the sensor's data on this topic.
+    The nxt_sensors_ros bindings talk directly to the NXT brick over USB.
+  </description>
+
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe Matias de Sousa</maintainer>
+  <author>Rodolphe Matias de Sousa</author>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>orocos_kdl</build_depend>
+  <build_depend>nxt_sensors_msgs</build_depend>
+  <build_depend>nxt_python</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+
+  <run_depend>orocos_kdl</run_depend>
+  <run_depend>nxt_sensors_msgs</run_depend>
+  <run_depend>nxt_python</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+</package>

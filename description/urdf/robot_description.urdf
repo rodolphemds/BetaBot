@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<robot name="robot_description">
+
+    <link name="base_link">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <visual>
+            <geometry>
+             <mesh filename="/etc/description/meshes/robot_3d_model.dae"/>
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                 <box size="0.360 0.180 0.530" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="3"/>
+            <inertia ixx="0.0" ixy="0.4" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+            </inertial>
+    </link>
+
+    <link name="head_link">
+        <origin xyz="0.060 0 0.360" rpy="0 0 0" />
+    </link>
+    <link name="torso_link">
+        <origin xyz="0.060 0 0.150" rpy="0 0 0" />
+    </link>
+    <link name="arms_link">
+        <origin xyz="0.060 0 0.310" rpy="0 0 0" />
+    </link>
+    <link name="laser_link">
+        <origin xyz="0.090 0.065 0.250" rpy="0 0 0" />
+    </link>
+    <link name="left_tread_link">
+        <origin xyz="-0.178 0.090 0" rpy="0 0 0" />
+    </link>
+    <link name="right_tread_link">
+        <origin xyz="-0.178 -0.090 0" rpy="0 0 0" />
+    </link>
+
+    <link name="left_bumper_link">
+        <origin xyz="-0.180 0.090 0" rpy="0 0 0"/>
+    </link>
+    <link name="right_bumper_link">
+        <origin xyz="-0.180 -0.090 0" rpy="0 0 0"/>
+    </link>
+    <link name="back_bumper_link">
+        <origin xyz="0.180 0 0" rpy="0 0 0"/>
+    </link>
+    <link name="ultrasonic_sensor_link">
+        <origin xyz="0.06 0 0.360" rpy="0 0 0"/>
+    </link>
+    <link name="line_following_sensor_link">
+        <origin xyz="-0.140 0 0" rpy="0 0 0"/>
+    </link>
+    <link name="sound_sensor_link">
+        <origin xyz="0.06 0.50 0.280" rpy="0 0 0"/>
+    </link>
+    <link name="color_sensor_link">
+        <origin xyz="0.090 0.065 0.340" rpy="0 0 0"/>
+    </link>
+    <link name="rfid_sensor_link">
+        <origin xyz="0 -0.5 0.170" rpy="0 0 0"/>
+    </link>
+    <link name="ambient_temperature_sensor_link">
+        <origin xyz="-0.130 0 0" rpy="0 0 0"/>
+    </link>
+    <link name="gps_link">
+        <origin xyz="-0.100 0 0" rpy="0 0 0"/>
+    </link>
+    <link name="imu_link">
+        <origin xyz="0 0 0" rpy="0 0 -1.57079632679"/>
+    </link>
+    <link name="relative_humidity_sensor_link">
+        <origin xyz="-0.130 0 0" rpy="0 0 0"/>
+    </link>
+    <link name="magnetic_field_sensor_link">
+        <origin xyz="0 0 0" rpy="0 3.14159265359 0"/>
+    </link>
+    <link name="lidar_link">
+        <origin xyz="0.060 0 0.530" rpy="0 0 0" />
+    </link>
+
+    <joint name="left_bumper_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="left_bumper_link"/>
+          <origin xyz="-0.180 0.090 0" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="right_bumper_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="right_bumper_link"/>
+          <origin xyz="-0.180 -0.090 0" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="back_bumper_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="back_bumper_link"/>
+          <origin xyz="0.180 0 0" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="ultrasonic_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="ultrasonic_sensor_link"/>
+          <origin xyz="0.06 0 0.360" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="line_following_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="line_following_sensor_link"/>
+          <origin xyz="-0.140 0 0" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="sound_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="sound_sensor_link"/>
+          <origin xyz="0.06 0.50 0.280" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="color_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="color_sensor_link"/>
+          <origin xyz="0.090 0.065 0.340" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="rfid_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="rfid_sensor_link"/>
+          <origin xyz="0 -0.5 0.170" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="ambient_temperature_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="ambient_temperature_sensor_link"/>
+          <origin xyz="-0.130 0 0" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="imu_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="imu_link"/>
+          <origin xyz="0 0 0" rpy="0 0 -1.57079632679"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="gps_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="gps_link"/>
+          <origin xyz="-0.10 0 0" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="relative_humidity_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="relative_humidity_sensor_link"/>
+          <origin xyz="-0.130 0 0" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="magnetic_field_sensor_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="magnetic_field_sensor_link"/>
+          <origin xyz="0 0 0" rpy="0 3.14159265359 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="lidar_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="lidar_link"/>
+          <origin xyz="0.060 0 0.530" rpy="0 0 0" />
+          <axis xyz="1 1 1" />
+    </joint>
+
+    <joint name="left_tread_joint" type="continuous">
+        <parent link="base_link"/>
+         <child link="left_tread_link"/>
+         <origin xyz="-0.178 0.090 0" rpy="0 0 0" />
+         <axis xyz="1 1 0" />
+    </joint>
+     <joint name="right_tread_joint" type="continuous">
+        <parent link="base_link"/>
+         <child link="right_tread_link"/>
+         <origin xyz="-0.178 -0.090 0" rpy="0 0 0" />
+         <axis xyz="1 1 0" />
+    </joint>
+    <joint name="torso_joint" type="revolute">
+        <parent link="base_link"/>
+         <child link="torso_link"/>
+         <origin xyz="0.060 0 0.150" rpy="0 0 0" />
+         <axis xyz="1 1 1" />
+         <limit effort="1" lower="0.0" upper="16.581" velocity="1"/>
+    </joint>
+    <joint name="head_joint" type="revolute">
+        <parent link="base_link"/>
+         <child link="head_link"/>
+         <origin xyz="-0.060 0 -0.360" rpy="0 0 0" />
+         <axis xyz="1 1 0" />
+         <limit effort="0.75" lower="-7.156" upper="7.156" velocity="1"/>
+    </joint>
+    <joint name="arms_joint" type="revolute">
+        <parent link="base_link"/>
+         <child link="arms_link"/>
+         <origin xyz="0.060 0 0.310" rpy="0 0 0" />
+         <axis xyz="1 1 1" />
+         <limit effort="0.5" lower="-2.443" upper="4.363" velocity="1"/>
+    </joint>
+    <joint name="laser_joint" type="revolute">
+        <parent link="base_link"/>
+         <child link="laser_link"/>
+         <origin xyz="0.090 0.065 0.250" rpy="0 0 0" />
+         <axis xyz="1 1 1" />
+         <limit effort="0.5" lower="0.0" upper="1.658" velocity="1"/>
+    </joint>
+
+</robot>

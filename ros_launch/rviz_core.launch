@@ -1,0 +1,4 @@
+<launch>
+  <include file="/launch/core.launch"/>
+  <node name="rviz" pkg="rviz" type="rviz"  args="-d /description/rviz/core.rviz"/>
+</launch>

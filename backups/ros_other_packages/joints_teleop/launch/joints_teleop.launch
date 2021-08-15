@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="joints_teleop" type="joints_teleop.py" name="joints_teleop"  output="screen">
+  </node>
+</launch>

@@ -1,0 +1,78 @@
+<launch>
+
+  <!-- robot description -->
+  <param name="robot_description" textfile="/etc/description/urdf/robot_description.urdf"/>
+  
+  <!-- connection to NXT1 -->
+  <node pkg="nxt1_ros" type="nxt1_ros.py" name="nxt1_ros" output="screen" respawn="true"/>
+
+  <!-- connection to NXT2 -->
+  <node pkg="nxt2_ros" type="nxt2_ros.py" name="nxt2_ros" output="screen" respawn="true"/>
+
+  <!-- joints_state publisher -->
+  <node pkg="nxt_controllers" type="joint_states_aggregator.py" name="joint_states_publisher" output="screen" respawn="true"/>
+
+  <!-- base controller -->
+  <node pkg="nxt_controllers" type="base_controller.py" name="base_controller" output="screen" respawn="true" />
+
+  <!-- treads odometry -->
+  <node pkg="nxt_controllers" type="base_odometry.py" name="odom_publisher" output="screen" respawn="true" />
+
+  <!-- joints controller -->
+  <node pkg="nxt_controllers" type="joints_controller.py" name="head_joint_controller" output="screen" respawn="true" >
+    <param name="name" value="head_joint"/>
+  </node>
+  <node pkg="nxt_controllers" type="joints_controller.py" name="laser_joint_controller" output="screen" respawn="true" >
+    <param name="name" value="laser_joint"/>
+  </node>
+  <node pkg="nxt_controllers" type="joints_controller.py" name="arms_joint_controller" output="screen" respawn="true" >
+    <param name="name" value="arms_joint"/>
+  </node>
+  <node pkg="nxt_controllers" type="joints_controller.py" name="torso_joint_controller" output="screen" respawn="true" >
+    <param name="name" value="torso_joint"/>
+  </node>
+
+  <!-- calculate robot position combining IMU and treads odometry -->
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_position_combined">
+    <param name="output_frame" value="odom_combined"/>
+    <param name="freq" value="30.0"/>
+    <param name="odom_used" value="true"/>
+    <param name="imu_used" value="true"/>
+    <param name="vo_used" value="false"/>
+  </node>
+
+  <!-- robot links transforms publisher -->
+  <node pkg="robot_state_publisher" type="state_publisher" name="transforms_publisher">
+    <param name="publish_frequency" value="10.0"/>
+  </node>
+
+  <!-- fixed transform for base_footprint-->
+  <node pkg="tf" type="static_transform_publisher" name="base_footprint_fixed_publisher" args="0 0 0 0 0 0 base_footprint base_link 100"/>
+
+  <!-- connection to webcam -->
+   <node name="head_camera" pkg="usb_cam" type="usb_cam_node" output="screen" respawn="true" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+    <param name="focus_auto" value="true"/>
+   </node>
+
+  <!-- connection to opencr -->
+  <node pkg="rosserial_python" type="serial_node.py" name="opencr_ros" output="screen" respawn="true" >
+    <param name="port" value="/dev/ttyACM0"/>
+    <param name="baud" value="9600"/>
+  </node>
+
+ <!-- connection to lidar -->
+ <node name="lidar" pkg="ldlidar" type="ldlidar" args="LD06" output="screen" >
+    <param name="serial_port" value="/dev/ttyS2"/>
+    <param name="lidar_frame" value="laser_scan"/>
+ </node>
+ 
+  <!-- emergency shutdown node -->
+  <node pkg="emergency_shutdown" type="emergency_shutdown.py" name="emergency_shutdown_request" output="screen" respawn="true"/>
+
+</launch>

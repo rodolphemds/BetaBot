@@ -1,0 +1,7 @@
+<launch>
+  <!-- <include file=/launch/core.launch" /> -->
+  <node pkg="base_simple_teleop" type="base_simple_teleop_node" name="base_simple_teleop"  output="screen">
+    <param name="scale_linear" value="1" type="double"/>
+    <param name="scale_angular" value="1" type="double"/>
+  </node>
+</launch>

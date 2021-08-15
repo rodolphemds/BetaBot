@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="point_operation" type="point_operation" name="point_operation"  output="screen">
+  </node>
+</launch>
