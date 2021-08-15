@@ -18,7 +18,7 @@ github_repository="betabot"
 ##################
 begin()
 {
-echo "... INITIAL SYSTEM SETUP SCRIPT ...";
+echo "### ... INITIAL SYSTEM SETUP SCRIPT ... ###";
 echo "Please note an internet connection is required. You must run this as the main standard user (ex. the default odroid account). The robot computer must be an Odroid c2 board with the default Ubuntu-Mate OS." 
 echo "This script should only be run once after a first reboot. Press [Enter] to continue setup.";
 read;
@@ -30,7 +30,7 @@ read;
 # Based on http://wiki.ros.org/noetic/Installation/Ubuntu
 install_ros()
 {
-echo "Installing ROS...";
+echo "### Installing ROS... ###";
 # Installation
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list';
 sudo apt install curl -y # if you haven't already installed curl;
@@ -40,7 +40,7 @@ sudo apt install ros-${ros_version}-desktop-full -y;
 # Environment setup
 echo "source /opt/ros/${ros_version}/setup.bash" >> ~/.bashrc;
 # Dependencies for building packages
-sudo apt install python-rosdep python3-rosdep python-rosinstall python3-rosinstall python-rosinstall-generator python3-rosinstall-generator python3-wstool python-wstool build-essential  python-catkin-tools -y;
+sudo apt install python-rosdep python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential  python-catkin-tools -y;
 sudo rosdep init;
 rosdep update;
 # Install other packages
@@ -52,7 +52,7 @@ echo "export ROS_IP=localhost" >> ~/.bashrc
 echo "export ROS_HOSTNAME=localhost" >> ~/.bashrc
 echo "export ROS_MASTER_URI=http://localhost:11311" >> ~/.bashrc
 # End
-echo "Installing ROS...Done";
+echo "### Installing ROS... Done ###";
 }
 
 ######################
@@ -60,7 +60,7 @@ echo "Installing ROS...Done";
 ######################
 install_packages()
 {
-echo "Installing other usefull packages...";
+echo "### Installing other usefull packages... ###";
 sudo add-apt-repository ppa:hardkernel/ppa;
 sudo apt-get update;
 sudo apt-get upgrade -y;
@@ -69,7 +69,7 @@ sudo apt-get install libnfs11 libcec odroid-wiringpi-python software-properties-
 sudo apt-get autoremove -y;
 sudo apt-get autoclean -y;
 # End
-echo "Installing other usefull packages...Done";
+echo "### Installing other usefull packages... Done ###";
 }
 
 ################################
@@ -77,7 +77,7 @@ echo "Installing other usefull packages...Done";
 ################################
 install_filesystem()
 {
-echo "Cloning file system repository from GitHub...";
+echo "### Cloning file system repository from GitHub... ###";
 # Downloading repository
 cd /
 sudo git clone https://${github_user_account}:${github_user_token}@github.com/${github_user_account}/${github_repository}.git;
@@ -97,7 +97,7 @@ cd /betabot/ros_ws;
 catkin build;
 echo "source /betabot/ros_ws/devel/setup.bash">> ~/.bashrc;
 # End
-echo "Cloning file system repository from GitHub...Done";
+echo "### Cloning file system repository from GitHub... Done ###";
 }
 
 ##################################
@@ -105,7 +105,7 @@ echo "Cloning file system repository from GitHub...Done";
 ##################################
 install_sound()
 {
-echo "Installing stereo sound bonnet..."
+echo "### Installing stereo sound bonnet... ###"
 # Load kernel modules at boot
 sudo modprobe snd-soc-pcm5102;
 sudo modprobe snd-soc-odroid-dac;
@@ -114,7 +114,7 @@ echo "snd-soc-odroid-dac" >> /etc/modules
 # Set default speaker
 echo set-default-sink 0 | sudo tee -a /etc/pulse/default.pa;
 # End
-echo "Installing stereo sound bonnet...Done"
+echo "### Installing stereo sound bonnet... Done ###"
 }
 
 ####################################
@@ -123,36 +123,36 @@ echo "Installing stereo sound bonnet...Done"
 system_config()
 {
 # Update date and time
-echo "Updating date and time...";
+echo "### Updating date and time... ###";
 ntpdate ntp.ubuntu.com;
-echo "Updating date and time...Done";
+echo "### Updating date and time... Done ###";
 
 # Disable root account
-echo "Disabling root account...";
+echo "### Disabling root account... ###";
 sudo passwd -l root;
-echo "Disabling root account...Done";
+echo "### Disabling root account... Done ###";
 
 # Customize odroid user account and allow auto-login
-echo 'Changing default "odroid" user name to "${standard_user_name}" with password "${standard_user_password}"...'
+echo '### Changing default "odroid" user name to "${standard_user_name}" with password "${standard_user_password}"... ###'
 usermod -l ${standard_user_name} odroid;
 usermod -p ${standard_user_password} ${standard_user_name};
 usermod -d /home/${standard_user_name} -m ${standard_user_name};
 rm -R /home/odroid;
-echo 'Changing default "odroid" user name to "${standard_user_name}" with password "${standard_user_password}"...Done';
-echo "Configuring ${standard_user_name} auto-login...";
+echo '### Changing default "odroid" user name to "${standard_user_name}" with password "${standard_user_password}"... Done ###';
+echo "### Configuring ${standard_user_name} auto-login... ###";
 echo "[Seat:*]" > /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
 echo "greeter-session=slick-greeter" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
 echo "autologin-user=${standard_user_name}" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
-echo "Configuring ${standard_user_name} auto-login...Done";
+echo "### Configuring ${standard_user_name} auto-login... Done ###";
 
 # Define robot name
-echo "Change robot name (default = ${robot_name})...Done";
+echo "### Change robot name (default = ${robot_name})... ###";
 echo "${robot_name}" > /etc/hostname;
 sed -i "s/odroid64/${robot_name}/g" /etc/hosts; #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
-echo "Change robot name (default = ${robot_name})...Done";
+echo "### Change robot name (default = ${robot_name})... Done ###";
 
 # Configure distant file access
-echo "Configuring samba share...";
+echo "### Configuring samba share... ###";
 touch /etc/libuser.conf;
 echo '[sambashare]' >> /etc/samba/smb.conf;
 echo -e '/t comment = Robot HD samba share' >> /etc/samba/smb.conf;
@@ -162,10 +162,10 @@ echo -e '/t writeable = yes' >> /etc/samba/smb.conf;
 echo -e '/t browsable = yes' >> /etc/samba/smb.conf;
 echo -e '/t valid users = ${standard_user_name} root' >> /etc/samba/smb.conf;
 sudo ufw allow samba;
-echo "Configuring samba share...Done";
+echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
-echo "Configuring scripts running on shutdown...";
+echo "### Configuring scripts running on shutdown... ###";
 echo '[Unit]' > /etc/systemd/system/shutdown-scripts.service;
 echo 'Description=Run shutdown additional commands from /betabot/shell_scripts/on_shutdown.sh' >> /etc/systemd/system/shutdown-scripts.service;
 echo '[Service]' >> /etc/systemd/system/shutdown-scripts.service;
@@ -175,10 +175,10 @@ echo 'RemainAfterExit=yes' >> /etc/systemd/system/shutdown-scripts.service;
 echo '[Install]' >> /etc/systemd/system/shutdown-scripts.service;
 echo 'WantedBy=multi-user.target' >> /etc/systemd/system/shutdown-scripts.service
 systemctl enable shutdown-scripts.service;
-echo "Configuring scripts running on shutdown...Done";
+echo "### Configuring scripts running on shutdown... Done ###";
 
  # Run commands listed on /betabot/shell_scripts/on_startup.sh to run at startup
-echo "Configuring scripts running on startup...";
+echo "### Configuring scripts running on startup... ###";
 echo '[Unit]' > /etc/systemd/system/startup-scripts.service;
 echo 'Description=Run startup additional commands from /betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/startup-scripts.service;
 echo '[Service]' >> /etc/systemd/system/startup-scripts.service;
@@ -187,7 +187,7 @@ echo 'ExecStop=//betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/sta
 echo '[Install]' >> /etc/systemd/system/startup-scripts.service;
 echo 'WantedBy=multi-user.target' >> /etc/systemd/system/startup-scripts.service
 systemctl enable startup-scripts.service;
-echo "Configuring scripts running on startup...Done";
+echo "### Configuring scripts running on startup... Done ###";
 }
 
 ##################
@@ -195,7 +195,7 @@ echo "Configuring scripts running on startup...Done";
 ##################
 end()
 {
-echo "Script finished. Please restart robot."
+echo "### Script finished. Please restart the robot. ###"
 exit
 }
 
