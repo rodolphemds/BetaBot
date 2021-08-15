@@ -2,6 +2,7 @@
 
 ## You can copy this file into /boot mounting point just after flashing the SD card and then run it after second boot. To make this script executable run chmod +x ThisScript
 
+
 #####################
 ## SET PARAMETERS ##
 #####################
@@ -13,14 +14,40 @@ github_user_account="rodolphemds"
 github_user_token="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" # this token will expire on 08/14/2022
 github_repository="betabot"
 
+#############################################
+## OTHER USEFULL COMMANDS TO REMEMBER ##
+#############################################
+#echo "Configure keyboard layout...";
+#dpkg-reconfigure keyboard-configuration;
+#echo "Configure default text editor...";
+#update-alternatives --config editor;
+# echo "Configuring the motd message...";
+# chmod -x /etc/update-motd.d/10-help-text;
+# echo 'printf "--- robot command line interface ---"' >> /etc/update-motd.d/00-title;
+# chmod +x /etc/update-motd.d/00-title;
+# echo "Configure VNC user password...";
+# vncpasswd;
+# Customize odroid user account and allow auto-login
+#echo '### Changing default odroid user name to ${standard_user_name} with password ${standard_user_password}... ###'
+#sudo usermod -l ${standard_user_name} odroid;
+#sudo usermod -p ${standard_user_password} ${standard_user_name};
+#sudo usermod -d /home/${standard_user_name} -m ${standard_user_name};
+#rm -Rf /home/odroid;
+#'### Changing default odroid user name to ${standard_user_name} with password ${standard_user_password}... Done ###'
+#sudo echo "### Configuring ${standard_user_name} auto-login... ###";
+#sudo echo "[Seat:*]" > /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
+#sudo echo "greeter-session=slick-greeter" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
+#sudo echo "autologin-user=${standard_user_name}" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
+#sudo echo "### Configuring ${standard_user_name} auto-login... Done ###";
+
 ##################
 ## BEGIN SCRIPT ##
 ##################
 begin()
 {
 echo "### ... INITIAL SYSTEM SETUP SCRIPT ... ###";
-echo "Please note an internet connection is required. You must run this as the main standard user (ex. the default odroid account). The robot computer must be an Odroid c2 board with the default Ubuntu-Mate OS." 
-echo "This script should only be run once after a first reboot. Press [Enter] to continue setup.";
+echo "### Please note an internet connection is required. You must run this as the main standard user (ex. the default odroid account). The robot computer must be an Odroid c2 board with the default Ubuntu-Mate OS. ###" 
+echo "### This script should only be run once after a first reboot. Press [Enter] to continue setup. ###";
 read;
 }
 
@@ -40,7 +67,7 @@ sudo apt install ros-${ros_version}-desktop-full -y;
 # Environment setup
 echo "source /opt/ros/${ros_version}/setup.bash" >> ~/.bashrc;
 # Dependencies for building packages
-sudo apt install python3 python3-pip python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential  python-catkin-tools -y;
+sudo apt install python3 python3-pip python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential -y;
 sudo rosdep init;
 rosdep update;
 # Install other packages
@@ -124,7 +151,7 @@ system_config()
 {
 # Update date and time
 echo "### Updating date and time... ###";
-ntpdate ntp.ubuntu.com;
+sudo ntpdate ntp.ubuntu.com;
 echo "### Updating date and time... Done ###";
 
 # Disable root account
@@ -132,61 +159,48 @@ echo "### Disabling root account... ###";
 sudo passwd -l root;
 echo "### Disabling root account... Done ###";
 
-# Customize odroid user account and allow auto-login
-echo '### Changing default "odroid" user name to "${standard_user_name}" with password "${standard_user_password}"... ###'
-usermod -l ${standard_user_name} odroid;
-usermod -p ${standard_user_password} ${standard_user_name};
-usermod -d /home/${standard_user_name} -m ${standard_user_name};
-rm -R /home/odroid;
-echo '### Changing default "odroid" user name to "${standard_user_name}" with password "${standard_user_password}"... Done ###';
-echo "### Configuring ${standard_user_name} auto-login... ###";
-echo "[Seat:*]" > /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
-echo "greeter-session=slick-greeter" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
-echo "autologin-user=${standard_user_name}" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
-echo "### Configuring ${standard_user_name} auto-login... Done ###";
-
 # Define robot name
 echo "### Change robot name (default = ${robot_name})... ###";
-echo "${robot_name}" > /etc/hostname;
-sed -i "s/odroid64/${robot_name}/g" /etc/hosts; #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
+sudo echo "${robot_name}" > /etc/hostname;
+sudo sed -i "s/odroid64/${robot_name}/g" /etc/hosts; #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
 echo "### Change robot name (default = ${robot_name})... Done ###";
 
 # Configure distant file access
 echo "### Configuring samba share... ###";
-touch /etc/libuser.conf;
-echo '[sambashare]' >> /etc/samba/smb.conf;
-echo -e '/t comment = Robot HD samba share' >> /etc/samba/smb.conf;
-echo -e '/t path = /' >> /etc/samba/smb.conf;
-echo -e '/t read only = no' >> /etc/samba/smb.conf;
-echo -e '/t writeable = yes' >> /etc/samba/smb.conf;
-echo -e '/t browsable = yes' >> /etc/samba/smb.conf;
-echo -e '/t valid users = ${standard_user_name} root' >> /etc/samba/smb.conf;
+sudo touch /etc/libuser.conf;
+sudo echo '[sambashare]' >> /etc/samba/smb.conf;
+sudo echo -e '/t comment = Robot HD samba share' >> /etc/samba/smb.conf;
+sudo echo -e '/t path = /' >> /etc/samba/smb.conf;
+sudo echo -e '/t read only = no' >> /etc/samba/smb.conf;
+sudo echo -e '/t writeable = yes' >> /etc/samba/smb.conf;
+sudo echo -e '/t browsable = yes' >> /etc/samba/smb.conf;
+sudo echo -e '/t valid users = ${standard_user_name} root' >> /etc/samba/smb.conf;
 sudo ufw allow samba;
 echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
 echo "### Configuring scripts running on shutdown... ###";
-echo '[Unit]' > /etc/systemd/system/shutdown-scripts.service;
-echo 'Description=Run shutdown additional commands from /betabot/shell_scripts/on_shutdown.sh' >> /etc/systemd/system/shutdown-scripts.service;
-echo '[Service]' >> /etc/systemd/system/shutdown-scripts.service;
-echo 'Type=oneshot' >> /etc/systemd/system/shutdown-scripts.service;
-echo 'ExecStop=/betabot/shell_scripts/on_shutdown.sh' >> /etc/systemd/system/shutdown-scripts.service;
-echo 'RemainAfterExit=yes' >> /etc/systemd/system/shutdown-scripts.service;
-echo '[Install]' >> /etc/systemd/system/shutdown-scripts.service;
-echo 'WantedBy=multi-user.target' >> /etc/systemd/system/shutdown-scripts.service
-systemctl enable shutdown-scripts.service;
+sudo echo '[Unit]' > /etc/systemd/system/shutdown-scripts.service;
+sudo echo 'Description=Run shutdown additional commands from /betabot/shell_scripts/on_shutdown.sh' >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo '[Service]' >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo 'Type=oneshot' >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo 'ExecStop=/betabot/shell_scripts/on_shutdown.sh' >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo 'RemainAfterExit=yes' >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo '[Install]' >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/shutdown-scripts.service
+sudo systemctl enable shutdown-scripts.service;
 echo "### Configuring scripts running on shutdown... Done ###";
 
  # Run commands listed on /betabot/shell_scripts/on_startup.sh to run at startup
 echo "### Configuring scripts running on startup... ###";
-echo '[Unit]' > /etc/systemd/system/startup-scripts.service;
-echo 'Description=Run startup additional commands from /betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/startup-scripts.service;
-echo '[Service]' >> /etc/systemd/system/startup-scripts.service;
-echo 'Type=simple' >> /etc/systemd/system/startup-scripts.service;
-echo 'ExecStop=//betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/startup-scripts.service;
-echo '[Install]' >> /etc/systemd/system/startup-scripts.service;
-echo 'WantedBy=multi-user.target' >> /etc/systemd/system/startup-scripts.service
-systemctl enable startup-scripts.service;
+sudo echo '[Unit]' > /etc/systemd/system/startup-scripts.service;
+sudo echo 'Description=Run startup additional commands from /betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/startup-scripts.service;
+sudo echo '[Service]' >> /etc/systemd/system/startup-scripts.service;
+sudo echo 'Type=simple' >> /etc/systemd/system/startup-scripts.service;
+sudo echo 'ExecStop=//betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/startup-scripts.service;
+sudo echo '[Install]' >> /etc/systemd/system/startup-scripts.service;
+sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/startup-scripts.service
+sudo systemctl enable startup-scripts.service;
 echo "### Configuring scripts running on startup... Done ###";
 }
 
@@ -195,23 +209,10 @@ echo "### Configuring scripts running on startup... Done ###";
 ##################
 end()
 {
-echo "### Script finished. Please restart the robot. ###"
+echo "### Script finished. Please restart the robot. ###";
+echo "### Do not forget to read this script which contains usefull commands to set more settings. ###";
 exit
 }
-
-#############################################
-## OTHER USEFULL COMMANDS TO REMEMBER ##
-#############################################
-#echo "Configure keyboard layout...";
-#dpkg-reconfigure keyboard-configuration;
-#echo "Configure default text editor...";
-#update-alternatives --config editor;
-# echo "Configuring the motd message...";
-# chmod -x /etc/update-motd.d/10-help-text;
-# echo 'printf "--- robot command line interface ---"' >> /etc/update-motd.d/00-title;
-# chmod +x /etc/update-motd.d/00-title;
-# echo "Configure VNC user password...";
-# vncpasswd;
 
 
 

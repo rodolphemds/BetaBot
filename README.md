@@ -10,6 +10,8 @@ Copy the initial_setup.sh file at first boot and then run :
 sudo chmod initial_setup.sh
 sudo ./initial_setup.sh
 ```
+You can make adjustment by setting variables at the beginning of this script. 
+Do not forget to read the script wich contains usefull command to set other parameters.
 
 ## BACKUPS
 This folder contains older versions of BetBot software work.
