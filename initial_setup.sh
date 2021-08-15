@@ -40,11 +40,11 @@ sudo apt install ros-${ros_version}-desktop-full -y;
 # Environment setup
 echo "source /opt/ros/${ros_version}/setup.bash" >> ~/.bashrc;
 # Dependencies for building packages
-sudo apt install python-pip python3 python3-pip python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential  python-catkin-tools -y;
+sudo apt install python3 python3-pip python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential  python-catkin-tools -y;
 sudo rosdep init;
 rosdep update;
 # Install other packages
-sudo apt-get install ros-${ros-version}-audio-common ros-${ros-version}-usb-cam ros-${ros-version}-rosserial-python ros-${ros-version}-tf ros-${ros-version}-joy ros-${ros-version}-teleop-twist-joy ros-${ros-version}-teleop-twist-keyboard ros-${ros-version}-laser-proc ros-${ros-version}-rgbd-launch ros-${ros-version}-depthimage-to-laserscan ros-${ros-version}-rosserial-arduino ros-${ros-version}-rosserial-python ros-${ros-version}-rosserial-server ros-${ros-version}-rosserial-client ros-${ros-version}-rosserial-msgs ros-${ros-version}-amcl ros-${ros-version}-map-server ros-${ros-version}-move-base ros-${ros-version}-urdf ros-${ros-version}-xacro ros-${ros-version}-compressed-image-transport ros-${ros-version}-rqt-image-view ros-${ros-version}-gmapping ros-${ros-version}-navigation ros-${ros-version}-interactive-markers ros-${ros-version}-rosserial-python ros-${ros-version}-tf -y
+sudo apt-get install ros-${ros_version}-audio-common ros-${ros_version}-usb-cam ros-${ros_version}-rosserial-python ros-${ros_version}-tf ros-${ros_version}-joy ros-${ros_version}-teleop-twist-joy ros-${ros_version}-teleop-twist-keyboard ros-${ros_version}-laser-proc ros-${ros_version}-rgbd-launch ros-${ros_version}-depthimage-to-laserscan ros-${ros_version}-rosserial-arduino ros-${ros_version}-rosserial-python ros-${ros_version}-rosserial-server ros-${ros_version}-rosserial-client ros-${ros_version}-rosserial-msgs ros-${ros_version}-amcl ros-${ros_version}-map-server ros-${ros_version}-move-base ros-${ros_version}-urdf ros-${ros_version}-xacro ros-${ros_version}-compressed-image-transport ros-${ros_version}-rqt-image-view ros-${ros_version}-gmapping ros-${ros_version}-navigation ros-${ros_version}-interactive-markers ros-${ros_version}-rosserial-python ros-${ros_version}-tf -y
 python2 -m pip install pyusb;
 python3 -m pip install pysub;
 #  Set environment variables
@@ -65,7 +65,7 @@ sudo add-apt-repository ppa:hardkernel/ppa -y;
 sudo apt-get update;
 sudo apt-get upgrade -y;
 sudo apt-get dist-upgrade -y;
-sudo apt-get install libnfs11 libcec odroid-wiringpi-python software-properties-common odroid-wiringpi libwiringpi-dev libwiringpi2 usbutils wget git alsa-utils xterm unzip software-properties-common firefox cheese xz-utils tar tightvncserver  locate blueman streamer smbclient samba system-config-samba chrony ntpdate -y;
+sudo apt-get install libnfs11 libcec odroid-wiringpi-python software-properties-common odroid-wiringpi libwiringpi-dev libwiringpi2 usbutils wget git alsa-utils xterm unzip software-properties-common firefox cheese xz-utils tar tightvncserver locate blueman streamer smbclient samba system-config-samba chrony ntpdate -y;
 sudo apt-get autoremove -y;
 sudo apt-get autoclean -y;
 # End
