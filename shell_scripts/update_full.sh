@@ -6,17 +6,10 @@ echo "Updating BetaBot system..."
 python2 /betabot/python_scripts/nxt2_light_anim.py;
 }
 
-apt_update()
+update_os()
 {
-apt-get update;
-apt-get upgrade -y;
-apt-get dist-upgrade -y;
-}
-
-cleaning()
-{
-apt-get autoremove -y;
-apt-get autoclean -y;
+cd /betabot/shell_scripts/
+sudo ./update_os.sh
 }
 
 update_filesystem()
@@ -33,7 +26,6 @@ exit
 }
 
 begin
-apt_update
-cleaning
+update_os
 update_filesystem
 end

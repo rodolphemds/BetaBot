@@ -68,7 +68,7 @@
 
  <!-- connection to lidar -->
  <node name="lidar" pkg="ldlidar" type="ldlidar" args="LD06" output="screen" >
-    <param name="serial_port" value="/dev/ttyS2"/>
+    <param name="serial_port" value="/dev/ttyS1"/>
     <param name="lidar_frame" value="laser_scan"/>
  </node>
  

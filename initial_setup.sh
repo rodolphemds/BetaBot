@@ -1,7 +1,9 @@
 #!/bin/bash
 
-## You can copy this file into /boot mounting point just after flashing the SD card and then run it after second boot. To make this script executable run chmod +x ThisScript
+## You can copy this file into /boot mounting point just after flashing the SD card and then after connecting to the Odroid C2 through ssh run it after second boot. On the Odroid C2 the boot partition is mounted on /media/boot.
+## Please note that you must reboot once the odroid C2 before running this script.
 
+## https://wiki.odroid.com/odroid-c2/os_images/ubuntu/v4.1
 
 #####################
 ## SET PARAMETERS ##
@@ -46,7 +48,7 @@ github_repository="betabot"
 begin()
 {
 echo "### ... INITIAL SYSTEM SETUP SCRIPT ... ###";
-echo "### Please note an internet connection is required. You must run this as the main standard user (ex. the default odroid account). The robot computer must be an Odroid c2 board with the default Ubuntu-Mate OS. ###" 
+echo "### Please note an internet connection is required. You must run this as the main standard user (ex. the default odroid account). The robot computer must be an Odroid C2 board with the default Ubuntu-Mate OS. ###" 
 echo "### This script should only be run once after a first reboot. Press [Enter] to continue setup. ###";
 read;
 }
@@ -66,13 +68,13 @@ sudo apt update;
 sudo apt install ros-${ros_version}-desktop-full -y;
 # Environment setup
 echo "source /opt/ros/${ros_version}/setup.bash" >> ~/.bashrc;
+source /opt/ros/${ros_version}/setup.bash;
 # Dependencies for building packages
 sudo apt install python3 python3-pip python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential -y;
 sudo rosdep init;
 rosdep update;
 # Install other packages
 sudo apt-get install ros-${ros_version}-audio-common ros-${ros_version}-usb-cam ros-${ros_version}-rosserial-python ros-${ros_version}-tf ros-${ros_version}-joy ros-${ros_version}-teleop-twist-joy ros-${ros_version}-teleop-twist-keyboard ros-${ros_version}-laser-proc ros-${ros_version}-rgbd-launch ros-${ros_version}-depthimage-to-laserscan ros-${ros_version}-rosserial-arduino ros-${ros_version}-rosserial-python ros-${ros_version}-rosserial-server ros-${ros_version}-rosserial-client ros-${ros_version}-rosserial-msgs ros-${ros_version}-amcl ros-${ros_version}-map-server ros-${ros_version}-move-base ros-${ros_version}-urdf ros-${ros_version}-xacro ros-${ros_version}-compressed-image-transport ros-${ros_version}-rqt-image-view ros-${ros_version}-gmapping ros-${ros_version}-navigation ros-${ros_version}-interactive-markers ros-${ros_version}-rosserial-python ros-${ros_version}-tf -y
-python2 -m pip install pyusb;
 python3 -m pip install pysub;
 #  Set environment variables
 echo "export ROS_IP=localhost" >> ~/.bashrc
@@ -87,16 +89,12 @@ echo "### Installing ROS... Done ###";
 ######################
 install_packages()
 {
-echo "### Installing other usefull packages... ###";
+echo "### Updating and installing other usefull packages... ###";
 sudo add-apt-repository ppa:hardkernel/ppa -y;
 sudo apt-get update;
-sudo apt-get upgrade -y;
-sudo apt-get dist-upgrade -y;
-sudo apt-get install libnfs11 libcec odroid-wiringpi-python software-properties-common odroid-wiringpi libwiringpi-dev libwiringpi2 usbutils wget git alsa-utils xterm unzip software-properties-common firefox cheese xz-utils tar tightvncserver locate blueman streamer smbclient samba system-config-samba chrony ntpdate -y;
-sudo apt-get autoremove -y;
-sudo apt-get autoclean -y;
+sudo apt-get install odroid-wiringpi-python software-properties-common odroid-wiringpi libwiringpi-dev libwiringpi2 usbutils wget git alsa-utils xterm unzip software-properties-common firefox cheese xz-utils tar tightvncserver locate blueman streamer smbclient chrony ntpdate -y;
 # End
-echo "### Installing other usefull packages... Done ###";
+echo "### Updating and installing other usefull packages... Done ###";
 }
 
 ################################
@@ -109,15 +107,15 @@ echo "### Cloning file system repository from GitHub... ###";
 cd /
 sudo git clone https://${github_user_account}:${github_user_token}@github.com/${github_user_account}/${github_repository}.git;
 # Making scripts executable
-sudo chmod+x /betabotbot/shell_scripts/*;
-sudo chmod+x /betabotbot/python_scripts/*;
+sudo chmod +x /betabotbot/shell_scripts/*;
+sudo chmod +x /betabotbot/python_scripts/*;
 # Sourcing shell scripts
 echo "source /betabot/shell_scripts/" >> ~/.bashrc;
 # Adding swap
 echo "Adding swap...";
-dd if=/dev/zero of=/swapfile bs=64M count=16;
-mkswap /swapfile;
-swapon /swapfile;
+sudo dd if=/dev/zero of=/swapfile bs=64M count=16;
+sudo mkswap /swapfile;
+sudo swapon /swapfile;
 echo "Adding swap...Done";
 # Building ROS packages
 cd /betabot/ros_ws;
@@ -136,8 +134,8 @@ echo "### Installing stereo sound bonnet... ###"
 # Load kernel modules at boot
 sudo modprobe snd-soc-pcm5102;
 sudo modprobe snd-soc-odroid-dac;
-echo "snd-soc-pcm5102" >> /etc/modules
-echo "snd-soc-odroid-dac" >> /etc/modules
+sudo echo "snd-soc-pcm5102" >> /etc/modules
+sudo echo "snd-soc-odroid-dac" >> /etc/modules
 # Set default speaker
 echo set-default-sink 0 | sudo tee -a /etc/pulse/default.pa;
 # End
@@ -167,6 +165,7 @@ echo "### Change robot name (default = ${robot_name})... Done ###";
 
 # Configure distant file access
 echo "### Configuring samba share... ###";
+sudo apt-get install samba smbfs;
 sudo touch /etc/libuser.conf;
 sudo echo '[sambashare]' >> /etc/samba/smb.conf;
 sudo echo -e '/t comment = Robot HD samba share' >> /etc/samba/smb.conf;
@@ -174,8 +173,9 @@ sudo echo -e '/t path = /' >> /etc/samba/smb.conf;
 sudo echo -e '/t read only = no' >> /etc/samba/smb.conf;
 sudo echo -e '/t writeable = yes' >> /etc/samba/smb.conf;
 sudo echo -e '/t browsable = yes' >> /etc/samba/smb.conf;
-sudo echo -e '/t valid users = ${standard_user_name} root' >> /etc/samba/smb.conf;
+sudo echo -e '/t guest ok = no' >> /etc/samba/smb.conf;
 sudo ufw allow samba;
+sudo /etc/init.d/smbd restart
 echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
@@ -209,8 +209,12 @@ echo "### Configuring scripts running on startup... Done ###";
 ##################
 end()
 {
+# Cleaning and end
+sudo apt-get autoremove -y;
+sudo apt-get autoclean -y;
 echo "### Script finished. Please restart the robot. ###";
 echo "### Do not forget to read this script which contains usefull commands to set more settings. ###";
+echo "### Please update the OS using the script in /betabot/shell_scripts/update_os.sh. ###";
 exit
 }
 
