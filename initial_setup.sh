@@ -19,23 +19,15 @@ github_repository="betabot"
 #############################################
 ## OTHER USEFULL COMMANDS TO REMEMBER ##
 #############################################
-#echo "Configure keyboard layout...";
-#dpkg-reconfigure keyboard-configuration;
-#echo "Configure default text editor...";
-#update-alternatives --config editor;
-# echo "Configuring the motd message...";
-# chmod -x /etc/update-motd.d/10-help-text;
-# echo 'printf "--- robot command line interface ---"' >> /etc/update-motd.d/00-title;
-# chmod +x /etc/update-motd.d/00-title;
-# echo "Configure VNC user password...";
-# vncpasswd;
+
 # Customize odroid user account and allow auto-login
 #echo '### Changing default odroid user name to ${standard_user_name} with password ${standard_user_password}... ###'
 #sudo usermod -l ${standard_user_name} odroid;
 #sudo usermod -p ${standard_user_password} ${standard_user_name};
 #sudo usermod -d /home/${standard_user_name} -m ${standard_user_name};
 #rm -Rf /home/odroid;
-#'### Changing default odroid user name to ${standard_user_name} with password ${standard_user_password}... Done ###'
+
+#### Changing default odroid user name to ${standard_user_name} with password ${standard_user_password}... Done ###'
 #sudo echo "### Configuring ${standard_user_name} auto-login... ###";
 #sudo echo "[Seat:*]" > /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
 #sudo echo "greeter-session=slick-greeter" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
@@ -136,8 +128,8 @@ echo "### Installing stereo sound bonnet... ###"
 # Load kernel modules at boot
 sudo modprobe snd-soc-pcm5102;
 sudo modprobe snd-soc-odroid-dac;
-sudo echo "snd-soc-pcm5102" >> /etc/modules;
-sudo echo "snd-soc-odroid-dac" >> /etc/modules;
+sudo bash -c 'echo "snd-soc-pcm5102" >> /etc/modules';
+sudo bash -c 'echo "snd-soc-odroid-dac" >> /etc/modules';
 # Set default speaker
 echo set-default-sink 0 | sudo tee -a /etc/pulse/default.pa;
 # End
@@ -167,7 +159,7 @@ echo "### Change robot name (default = ${robot_name})... Done ###";
 
 # Configure distant file access
 echo "### Configuring samba share... ###";
-sudo apt-get install samba;
+sudo apt-get install samba -y;
 sudo touch /etc/libuser.conf;
 sudo bash -c 'echo "[sambashare]" >> /etc/samba/smb.conf';
 sudo bash -c 'echo -e "/t comment = Robot HD samba share">> /etc/samba/smb.conf';
@@ -203,6 +195,28 @@ sudo bash -c 'echo "[Install]" >> /etc/systemd/system/startup-scripts.service';
 sudo bash -c 'echo "WantedBy=multi-user.target" >> /etc/systemd/system/startup-scripts.service
 sudo systemctl enable startup-scripts.service';
 echo "### Configuring scripts running on startup... Done ###";
+
+# Configuring message appearing on ssh connection
+echo "### Configuring the motd message... ###";
+# chmod -x /etc/update-motd.d/10-help-text;
+sudo bash -c 'echo 'printf "--- ROBOT COMMAND LINE INTERFACE ---"' >> /etc/update-motd.d/00-title';
+chmod +x /etc/update-motd.d/00-title;
+echo "### Configuring the motd message... Done ###";
+
+# Ask user to configure the keyboard
+echo "### Configuring keyboard layout... ###";
+sudo dpkg-reconfigure keyboard-configuration;
+echo "### Configuring keyboard layout... Done ###";
+
+# Ask user to set default text editor
+echo "### Configuring default text editor... ###";
+update-alternatives --config editor;
+echo "### Configuring default text editor... Done ###";
+
+# Ask user to set VNC password
+echo "Please choose a password to for VNC connection...";
+vncpasswd;
+echo "VNC password defined";
 }
 
 ##################
