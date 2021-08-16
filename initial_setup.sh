@@ -10,8 +10,8 @@
 #####################
 robot_name="BetaBot"
 ros_version="noetic" #ROS noetic requires the last Ubuntu 20.04 LTS release for Odroid C2
-standard_user_name="user"
-standard_user_password="password"
+# standard_user_name="user" # must be modified manualy
+# standard_user_password="password" # must be modified manualy
 github_user_account="rodolphemds"
 github_user_token="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" # this token will expire on 08/14/2022
 github_repository="betabot"
@@ -110,7 +110,7 @@ sudo git clone https://${github_user_account}:${github_user_token}@github.com/${
 sudo chmod +x /betabotbot/shell_scripts/*;
 sudo chmod +x /betabotbot/python_scripts/*;
 # Sourcing shell scripts
-echo "export PATH="/betabot/shell_scripts/:$PATH" >> ~/.bashrc;
+echo "export PATH=/betabot/shell_scripts/:$PATH" >> ~/.bashrc;
 # Adding swap
 echo "Adding swap...";
 sudo dd if=/dev/zero of=/swapfile bs=64M count=16;
@@ -159,7 +159,7 @@ echo "### Disabling root account... Done ###";
 
 # Define robot name
 echo "### Change robot name (default = ${robot_name})... ###";
-sudo echo "${robot_name}" > /etc/hostname;
+sudo echo "${robot_name}" >> /etc/hostname;
 sudo sed -i "s/odroid64/${robot_name}/g" /etc/hosts; #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
 echo "### Change robot name (default = ${robot_name})... Done ###";
 
@@ -167,39 +167,38 @@ echo "### Change robot name (default = ${robot_name})... Done ###";
 echo "### Configuring samba share... ###";
 sudo apt-get install samba smbfs;
 sudo touch /etc/libuser.conf;
-sudo echo '[sambashare]' >> /etc/samba/smb.conf;
-sudo echo -e '/t comment = Robot HD samba share' >> /etc/samba/smb.conf;
-sudo echo -e '/t path = /' >> /etc/samba/smb.conf;
-sudo echo -e '/t read only = no' >> /etc/samba/smb.conf;
-sudo echo -e '/t writeable = yes' >> /etc/samba/smb.conf;
-sudo echo -e '/t browsable = yes' >> /etc/samba/smb.conf;
-sudo echo -e '/t guest ok = no' >> /etc/samba/smb.conf;
+sudo "[sambashare]" >> /etc/samba/smb.conf;
+sudo echo -e "/t comment = Robot HD samba share">> /etc/samba/smb.conf;
+sudo echo -e "/t path = /">> /etc/samba/smb.conf;
+sudo echo -e "/t read only = no" >> /etc/samba/smb.conf;
+sudo echo -e "/t writeable = yes" >> /etc/samba/smb.conf;
+sudo echo -e "/t browsable = yes" >> /etc/samba/smb.conf;
+sudo echo -e "/t guest ok = no" >> /etc/samba/smb.conf;
 sudo ufw allow samba;
-sudo /etc/init.d/smbd restart
 echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
 echo "### Configuring scripts running on shutdown... ###";
-sudo echo '[Unit]' > /etc/systemd/system/shutdown-scripts.service;
-sudo echo 'Description=Run shutdown additional commands from /betabot/shell_scripts/on_shutdown.sh' >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo '[Service]' >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo 'Type=oneshot' >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo 'ExecStop=/betabot/shell_scripts/on_shutdown.sh' >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo 'RemainAfterExit=yes' >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo '[Install]' >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/shutdown-scripts.service
+sudo echo "[Unit]" > /etc/systemd/system/shutdown-scripts.service;
+sudo echo "Description=Run shutdown additional commands from /betabot/shell_scripts/on_shutdown.sh" >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo "[Service]" >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo "Type=oneshot" >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo "ExecStop=/betabot/shell_scripts/on_shutdown.sh" >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo "RemainAfterExit=yes" >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo "[Install]" >> /etc/systemd/system/shutdown-scripts.service;
+sudo echo "WantedBy=multi-user.target" >> /etc/systemd/system/shutdown-scripts.service
 sudo systemctl enable shutdown-scripts.service;
 echo "### Configuring scripts running on shutdown... Done ###";
 
  # Run commands listed on /betabot/shell_scripts/on_startup.sh to run at startup
 echo "### Configuring scripts running on startup... ###";
-sudo echo '[Unit]' > /etc/systemd/system/startup-scripts.service;
-sudo echo 'Description=Run startup additional commands from /betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/startup-scripts.service;
-sudo echo '[Service]' >> /etc/systemd/system/startup-scripts.service;
-sudo echo 'Type=simple' >> /etc/systemd/system/startup-scripts.service;
-sudo echo 'ExecStop=//betabot/shell_scripts/on_startup.sh' >> /etc/systemd/system/startup-scripts.service;
-sudo echo '[Install]' >> /etc/systemd/system/startup-scripts.service;
-sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/startup-scripts.service
+sudo echo "[Unit]" > /etc/systemd/system/startup-scripts.service;
+sudo echo "Description=Run startup additional commands from /betabot/shell_scripts/on_startup.sh" >> /etc/systemd/system/startup-scripts.service;
+sudo echo "[Service]" >> /etc/systemd/system/startup-scripts.service;
+sudo echo "Type=simple" >> /etc/systemd/system/startup-scripts.service;
+sudo echo "ExecStop=//betabot/shell_scripts/on_startup.sh" >> /etc/systemd/system/startup-scripts.service;
+sudo echo "[Install]" >> /etc/systemd/system/startup-scripts.service;
+sudo echo "WantedBy=multi-user.target" >> /etc/systemd/system/startup-scripts.service
 sudo systemctl enable startup-scripts.service;
 echo "### Configuring scripts running on startup... Done ###";
 }
