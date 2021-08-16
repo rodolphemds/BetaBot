@@ -34,6 +34,13 @@ github_repository="betabot"
 #sudo echo "autologin-user=${standard_user_name}" >> /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf;
 #sudo echo "### Configuring ${standard_user_name} auto-login... Done ###";
 
+# Configuring message appearing on ssh connection
+#echo "### Configuring the motd message... ###";
+# chmod -x /etc/update-motd.d/10-help-text;
+#sudo echo 'printf "--- ROBOT COMMAND LINE INTERFACE ---"' >> /etc/update-motd.d/00-title;
+#chmod +x /etc/update-motd.d/00-title;
+#echo "### Configuring the motd message... Done ###";
+
 ##################
 ## BEGIN SCRIPT ##
 ##################
@@ -99,8 +106,8 @@ echo "### Cloning file system repository from GitHub and building ROS packages..
 cd /
 sudo git clone https://${github_user_account}:${github_user_token}@github.com/${github_user_account}/${github_repository}.git;
 # Making scripts executable
-sudo chmod +x /betabotbot/shell_scripts/*;
-sudo chmod +x /betabotbot/python_scripts/*;
+sudo chmod -R +x /betabotbot/shell_scripts/*;
+sudo chmod -R +x /betabotbot/python_scripts/*;
 # Sourcing shell scripts
 echo "export PATH=/betabot/shell_scripts/:$PATH" >> ~/.bashrc;
 # Adding swap
@@ -131,7 +138,7 @@ sudo modprobe snd-soc-odroid-dac;
 sudo bash -c 'echo "snd-soc-pcm5102" >> /etc/modules';
 sudo bash -c 'echo "snd-soc-odroid-dac" >> /etc/modules';
 # Set default speaker
-echo set-default-sink 0 | sudo tee -a /etc/pulse/default.pa;
+set-default-sink 0 | sudo tee -a /etc/pulse/default.pa;
 # End
 echo "### Installing stereo sound bonnet... Done ###"
 }
@@ -169,7 +176,7 @@ sudo bash -c 'echo -e "/t writeable = yes" >> /etc/samba/smb.conf';
 sudo bash -c 'echo -e "/t browsable = yes" >> /etc/samba/smb.conf';
 sudo bash -c 'echo -e "/t guest ok = yes" >> /etc/samba/smb.conf';
 sudo ufw allow samba;
-echo "Guest access has been authorized, you will not need any password to connect to the robot samba share";
+echo "Guest access has been authorized, you will not need any password to connect to the robot filesystem through samba.";
 echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
@@ -196,13 +203,6 @@ sudo bash -c 'echo "[Install]" >> /etc/systemd/system/startup-scripts.service';
 sudo bash -c 'echo "WantedBy=multi-user.target" >> /etc/systemd/system/startup-scripts.service
 sudo systemctl enable startup-scripts.service';
 echo "### Configuring scripts running on startup... Done ###";
-
-# Configuring message appearing on ssh connection
-echo "### Configuring the motd message... ###";
-# chmod -x /etc/update-motd.d/10-help-text;
-sudo bash -c 'echo 'printf "--- ROBOT COMMAND LINE INTERFACE ---"' >> /etc/update-motd.d/00-title';
-chmod +x /etc/update-motd.d/00-title;
-echo "### Configuring the motd message... Done ###";
 
 # Ask user to configure the keyboard
 echo "### Configuring keyboard layout... ###";

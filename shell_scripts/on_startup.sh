@@ -16,6 +16,12 @@ launch_ros_betabot_core()
 /opt/ros/noetic/bin/roslaunch /betabot/ros_launch/core.launch;
 }
 
+launch_vnc()
+{
+vncserver;
+}
+
 begin
 reset_motors
 launch_ros_betabot_core
+launch_vnc
