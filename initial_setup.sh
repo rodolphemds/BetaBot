@@ -102,7 +102,7 @@ echo "### Updating and installing other usefull packages... Done ###";
 ################################
 install_filesystem()
 {
-echo "### Cloning file system repository from GitHub... ###";
+echo "### Cloning file system repository from GitHub and building ROS packages... ###";
 # Downloading repository
 cd /
 sudo git clone https://${github_user_account}:${github_user_token}@github.com/${github_user_account}/${github_repository}.git;
@@ -118,9 +118,11 @@ sudo mkswap /swapfile;
 sudo swapon /swapfile;
 echo "Adding swap...Done";
 # Building ROS packages
+echo "Building ROS packages...";
 cd /betabot/ros_ws;
 catkin build;
 echo "source /betabot/ros_ws/devel/setup.bash">> ~/.bashrc;
+echo "Building ROS packages... Done";
 # End
 echo "### Cloning file system repository from GitHub... Done ###";
 }
@@ -134,8 +136,8 @@ echo "### Installing stereo sound bonnet... ###"
 # Load kernel modules at boot
 sudo modprobe snd-soc-pcm5102;
 sudo modprobe snd-soc-odroid-dac;
-sudo echo "snd-soc-pcm5102" >> /etc/modules
-sudo echo "snd-soc-odroid-dac" >> /etc/modules
+sudo echo "snd-soc-pcm5102" >> /etc/modules;
+sudo echo "snd-soc-odroid-dac" >> /etc/modules;
 # Set default speaker
 echo set-default-sink 0 | sudo tee -a /etc/pulse/default.pa;
 # End
@@ -159,47 +161,47 @@ echo "### Disabling root account... Done ###";
 
 # Define robot name
 echo "### Change robot name (default = ${robot_name})... ###";
-sudo echo "${robot_name}" >> /etc/hostname;
+sudo bash -c "echo '${robot_name}' >> /etc/hostname";
 sudo sed -i "s/odroid64/${robot_name}/g" /etc/hosts; #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
 echo "### Change robot name (default = ${robot_name})... Done ###";
 
 # Configure distant file access
 echo "### Configuring samba share... ###";
-sudo apt-get install samba smbfs;
+sudo apt-get install samba;
 sudo touch /etc/libuser.conf;
-sudo "[sambashare]" >> /etc/samba/smb.conf;
-sudo echo -e "/t comment = Robot HD samba share">> /etc/samba/smb.conf;
-sudo echo -e "/t path = /">> /etc/samba/smb.conf;
-sudo echo -e "/t read only = no" >> /etc/samba/smb.conf;
-sudo echo -e "/t writeable = yes" >> /etc/samba/smb.conf;
-sudo echo -e "/t browsable = yes" >> /etc/samba/smb.conf;
-sudo echo -e "/t guest ok = no" >> /etc/samba/smb.conf;
+sudo bash -c 'echo "[sambashare]" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "/t comment = Robot HD samba share">> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "/t path = /">> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "/t read only = no" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "/t writeable = yes" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "/t browsable = yes" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "/t guest ok = no" >> /etc/samba/smb.conf';
 sudo ufw allow samba;
 echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
 echo "### Configuring scripts running on shutdown... ###";
-sudo echo "[Unit]" > /etc/systemd/system/shutdown-scripts.service;
-sudo echo "Description=Run shutdown additional commands from /betabot/shell_scripts/on_shutdown.sh" >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo "[Service]" >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo "Type=oneshot" >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo "ExecStop=/betabot/shell_scripts/on_shutdown.sh" >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo "RemainAfterExit=yes" >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo "[Install]" >> /etc/systemd/system/shutdown-scripts.service;
-sudo echo "WantedBy=multi-user.target" >> /etc/systemd/system/shutdown-scripts.service
+sudo bash -c 'echo "[Unit]" > /etc/systemd/system/shutdown-scripts.service';
+sudo bash -c 'echo "Description=Run shutdown additional commands from /betabot/shell_scripts/on_shutdown.sh" >> /etc/systemd/system/shutdown-scripts.service';
+sudo bash -c 'echo "[Service]" >> /etc/systemd/system/shutdown-scripts.service';
+sudo bash -c 'echo "Type=oneshot" >> /etc/systemd/system/shutdown-scripts.service';
+sudo bash -c 'echo "ExecStop=/betabot/shell_scripts/on_shutdown.sh" >> /etc/systemd/system/shutdown-scripts.service';
+sudo bash -c 'echo "RemainAfterExit=yes" >> /etc/systemd/system/shutdown-scripts.service';
+sudo bash -c 'echo "[Install]" >> /etc/systemd/system/shutdown-scripts.service';
+sudo bash -c 'echo "WantedBy=multi-user.target" >> /etc/systemd/system/shutdown-scripts.service'
 sudo systemctl enable shutdown-scripts.service;
 echo "### Configuring scripts running on shutdown... Done ###";
 
  # Run commands listed on /betabot/shell_scripts/on_startup.sh to run at startup
 echo "### Configuring scripts running on startup... ###";
-sudo echo "[Unit]" > /etc/systemd/system/startup-scripts.service;
-sudo echo "Description=Run startup additional commands from /betabot/shell_scripts/on_startup.sh" >> /etc/systemd/system/startup-scripts.service;
-sudo echo "[Service]" >> /etc/systemd/system/startup-scripts.service;
-sudo echo "Type=simple" >> /etc/systemd/system/startup-scripts.service;
-sudo echo "ExecStop=//betabot/shell_scripts/on_startup.sh" >> /etc/systemd/system/startup-scripts.service;
-sudo echo "[Install]" >> /etc/systemd/system/startup-scripts.service;
-sudo echo "WantedBy=multi-user.target" >> /etc/systemd/system/startup-scripts.service
-sudo systemctl enable startup-scripts.service;
+sudo bash -c 'echo "[Unit]" > /etc/systemd/system/startup-scripts.service';
+sudo bash -c 'echo "Description=Run startup additional commands from /betabot/shell_scripts/on_startup.sh" >> /etc/systemd/system/startup-scripts.service';
+sudo bash -c 'echo "[Service]" >> /etc/systemd/system/startup-scripts.service';
+sudo bash -c 'echo "Type=simple" >> /etc/systemd/system/startup-scripts.service';
+sudo bash -c 'echo "ExecStop=//betabot/shell_scripts/on_startup.sh" >> /etc/systemd/system/startup-scripts.service';
+sudo bash -c 'echo "[Install]" >> /etc/systemd/system/startup-scripts.service';
+sudo bash -c 'echo "WantedBy=multi-user.target" >> /etc/systemd/system/startup-scripts.service
+sudo systemctl enable startup-scripts.service';
 echo "### Configuring scripts running on startup... Done ###";
 }
 
