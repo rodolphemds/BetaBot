@@ -153,7 +153,7 @@ echo "### Disabling root account... Done ###";
 
 # Define robot name
 echo "### Change robot name (default = ${robot_name})... ###";
-sudo bash -c "echo '${robot_name}' >> /etc/hostname";
+sudo sed -i "s/odroid/${robot_name}/g" /etc/hostname;
 sudo sed -i "s/odroid64/${robot_name}/g" /etc/hosts; #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
 echo "### Change robot name (default = ${robot_name})... Done ###";
 
@@ -167,8 +167,9 @@ sudo bash -c 'echo -e "/t path = /">> /etc/samba/smb.conf';
 sudo bash -c 'echo -e "/t read only = no" >> /etc/samba/smb.conf';
 sudo bash -c 'echo -e "/t writeable = yes" >> /etc/samba/smb.conf';
 sudo bash -c 'echo -e "/t browsable = yes" >> /etc/samba/smb.conf';
-sudo bash -c 'echo -e "/t guest ok = no" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "/t guest ok = yes" >> /etc/samba/smb.conf';
 sudo ufw allow samba;
+echo "Guest access has been authorized, you will not need any password to connect to the robot samba share";
 echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
