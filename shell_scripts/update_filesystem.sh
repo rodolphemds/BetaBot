@@ -30,7 +30,6 @@ source /betabot/ros_ws/devel/setup.bash;
 
 source_scripts()
 {
-source /betabot/shell_scripts/
 sudo chmod+x /betabotbot/shell_scripts/*
 sudo chmod+x /betabotbot/python_scripts/*
 

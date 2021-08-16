@@ -110,7 +110,7 @@ sudo git clone https://${github_user_account}:${github_user_token}@github.com/${
 sudo chmod +x /betabotbot/shell_scripts/*;
 sudo chmod +x /betabotbot/python_scripts/*;
 # Sourcing shell scripts
-echo "source /betabot/shell_scripts/" >> ~/.bashrc;
+echo "export PATH="/betabot/shell_scripts/:$PATH" >> ~/.bashrc;
 # Adding swap
 echo "Adding swap...";
 sudo dd if=/dev/zero of=/swapfile bs=64M count=16;
