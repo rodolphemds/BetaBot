@@ -169,14 +169,15 @@ echo "### Configuring samba share... ###";
 sudo apt-get install samba -y;
 sudo touch /etc/libuser.conf;
 sudo bash -c 'echo "[sambashare]" >> /etc/samba/smb.conf';
-sudo bash -c 'echo -e "/t comment = Robot HD samba share">> /etc/samba/smb.conf';
-sudo bash -c 'echo -e "/t path = /">> /etc/samba/smb.conf';
-sudo bash -c 'echo -e "/t read only = no" >> /etc/samba/smb.conf';
-sudo bash -c 'echo -e "/t writeable = yes" >> /etc/samba/smb.conf';
-sudo bash -c 'echo -e "/t browsable = yes" >> /etc/samba/smb.conf';
-sudo bash -c 'echo -e "/t guest ok = yes" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "comment = Robot HD samba share">> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "path = /">> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "read only = no" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "writeable = yes" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "browsable = yes" >> /etc/samba/smb.conf';
+sudo bash -c 'echo -e "guest ok = yes" >> /etc/samba/smb.conf';
+sudo chmod 0777 /;
 sudo ufw allow samba;
-echo "Guest access has been authorized, you will not need any password to connect to the robot filesystem through samba.";
+echo "Guest access to samba share is authorized. You will not need any password to connect to the server.";
 echo "### Configuring samba share... Done ###";
  
  # Run commands listed on /betabot/shell_scripts/on_shutdown.sh to run at shutdown
