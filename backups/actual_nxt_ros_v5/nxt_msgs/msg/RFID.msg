@@ -1,6 +1,0 @@
-Header header
-string data
-string sensor_type
-string sensor_manufacturer
-string firmware_version
-string sensor_serial

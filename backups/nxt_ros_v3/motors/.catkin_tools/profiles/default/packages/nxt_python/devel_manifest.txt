@@ -1,6 +1,0 @@
-nxt_python
-/nxt/devel/.private/nxt_python/cmake.lock /nxt/devel/./cmake.lock
-/nxt/devel/.private/nxt_python/share/nxt_python/cmake/nxt_pythonConfig.cmake /nxt/devel/share/nxt_python/cmake/nxt_pythonConfig.cmake
-/nxt/devel/.private/nxt_python/share/nxt_python/cmake/nxt_pythonConfig-version.cmake /nxt/devel/share/nxt_python/cmake/nxt_pythonConfig-version.cmake
-/nxt/devel/.private/nxt_python/lib/python2.7/dist-packages/nxt_python/__init__.py /nxt/devel/lib/python2.7/dist-packages/nxt_python/__init__.py
-/nxt/devel/.private/nxt_python/lib/pkgconfig/nxt_python.pc /nxt/devel/lib/pkgconfig/nxt_python.pc

@@ -1,6 +1,0 @@
-nxt_ros
-/nxt/devel/.private/nxt_ros/cmake.lock /nxt/devel/./cmake.lock
-/nxt/devel/.private/nxt_ros/share/nxt_ros/cmake/nxt_rosConfig-version.cmake /nxt/devel/share/nxt_ros/cmake/nxt_rosConfig-version.cmake
-/nxt/devel/.private/nxt_ros/share/nxt_ros/cmake/nxt_rosConfig.cmake /nxt/devel/share/nxt_ros/cmake/nxt_rosConfig.cmake
-/nxt/devel/.private/nxt_ros/lib/python2.7/dist-packages/nxt_ros/__init__.py /nxt/devel/lib/python2.7/dist-packages/nxt_ros/__init__.py
-/nxt/devel/.private/nxt_ros/lib/pkgconfig/nxt_ros.pc /nxt/devel/lib/pkgconfig/nxt_ros.pc
