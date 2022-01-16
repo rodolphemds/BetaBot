@@ -20,7 +20,6 @@
 
   <build_depend>orocos_kdl</build_depend>
   <build_depend>nxt_msgs</build_depend>
-  <build_depend>nxt_python</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>sensor_msgs</build_depend>
 
