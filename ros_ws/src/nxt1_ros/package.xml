@@ -25,7 +25,6 @@
 
   <run_depend>orocos_kdl</run_depend>
   <run_depend>nxt_msgs</run_depend>
-  <run_depend>nxt_python</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>sensor_msgs</run_depend>
 </package>

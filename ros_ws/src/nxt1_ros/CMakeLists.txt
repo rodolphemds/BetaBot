@@ -6,7 +6,6 @@ find_package(orocos_kdl REQUIRED COMPONENTS)
 
 find_package(catkin REQUIRED COMPONENTS
   nxt_msgs
-  nxt_python
   rospy
   sensor_msgs
 )
@@ -14,5 +13,5 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_python_setup()
 
 catkin_package(
-  CATKIN_DEPENDS nxt_msgs nxt_python rospy sensor_msgs
+  CATKIN_DEPENDS nxt_msgs rospy sensor_msgs
 )
