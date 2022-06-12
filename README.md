@@ -4,14 +4,8 @@ Each folder contains a README.md file explaining what is the folder about.
 
 NB : As this folder is not intended to be modified during robot work, all temporary or user created files such as recorded maps are not stored in this folder but in the user's home space.
 
-## BACKUPS
-This folder contains older versions of BetBot software work.
-
 ## DESCRIPTION
 This folder contains the urdf ahd mesh files which describes BetaBot hardware to be used by ROS2.
-
-## DOCS 
-This folder contains usefull documentation for BetaBot's hardware and software.
 
 ## MEDIA
 This folder contains sounds, pictures, icons and other multimedia ressources for BetaBot.
