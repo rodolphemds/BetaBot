@@ -1,7 +1,7 @@
 <launch>
 
   <!-- robot description -->
-  <param name="robot_description" textfile="/etc/description/urdf/robot_description.urdf"/>
+  <param name="robot_description" textfile="/betabot/description/urdf/robot_description.urdf"/>
   
   <!-- connection to NXT1 -->
   <node pkg="nxt1_ros" type="nxt1_ros.py" name="nxt1_ros" output="screen" respawn="true"/>
@@ -42,7 +42,7 @@
   </node>
 
   <!-- robot links transforms publisher -->
-  <node pkg="robot_state_publisher" type="state_publisher" name="transforms_publisher">
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="transforms_publisher">
     <param name="publish_frequency" value="10.0"/>
   </node>
 
