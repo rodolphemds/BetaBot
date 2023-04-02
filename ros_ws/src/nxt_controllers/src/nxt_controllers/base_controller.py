@@ -61,7 +61,7 @@ class BaseController:
 
         # joint interaction
         self.pub = rospy.Publisher('joint_command', JointCommand, queue_size=10)
-        rospy.Subscriber('joint_states', JointState, self.jnt_state_cb)
+        rospy.Subscriber('joint_states_publisher', JointState, self.jnt_state_cb)
 
         # base commands
         rospy.Subscriber('cmd_vel', Twist, self.cmd_vel_cb)

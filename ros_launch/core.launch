@@ -42,7 +42,7 @@
   </node>
 
   <!-- robot links transforms publisher -->
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="transforms_publisher">
+  <node pkg="robot_state_publisher" type="state_publisher" name="transforms_publisher">
     <param name="publish_frequency" value="10.0"/>
   </node>
 
