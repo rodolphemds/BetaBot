@@ -13,7 +13,7 @@ sudo ./motors_reset.sh;
 
 launch_ros_betabot_core()
 {
-/opt/ros/noetic/bin/roslaunch /betabot/ros_launch/core.launch;
+/opt/ros/melodic/bin/roslaunch /betabot/ros_launch/core.launch;
 }
 
 begin

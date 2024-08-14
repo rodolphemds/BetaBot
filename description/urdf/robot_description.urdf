@@ -50,6 +50,9 @@
     <link name="ultrasonic_sensor_link">
         <origin xyz="0.06 0 0.360" rpy="0 0 0"/>
     </link>
+    <link name="usb_cam_link">
+        <origin xyz="0.06 0 0.360" rpy="0 0 0"/>
+    </link>
     <link name="line_following_sensor_link">
         <origin xyz="-0.140 0 0" rpy="0 0 0"/>
     </link>
@@ -102,6 +105,12 @@
     <joint name="ultrasonic_sensor_joint" type="fixed">
           <parent link="base_link"/>
           <child link="ultrasonic_sensor_link"/>
+          <origin xyz="0.06 0 0.360" rpy="0 0 0"/>
+          <axis xyz="1 1 1" />
+    </joint>
+    <joint name="usb_cam_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="usb_cam_link"/>
           <origin xyz="0.06 0 0.360" rpy="0 0 0"/>
           <axis xyz="1 1 1" />
     </joint>

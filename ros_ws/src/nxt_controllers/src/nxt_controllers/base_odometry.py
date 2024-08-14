@@ -58,7 +58,7 @@ class BaseOdometry:
         self.tread_basis = 0.055
 
         # joint interaction
-        rospy.Subscriber('joint_states_publisher', JointState, self.jnt_state_cb)
+        rospy.Subscriber('joint_states', JointState, self.jnt_state_cb)
 
         # tf broadcaster
         if PUBLISH_TF:

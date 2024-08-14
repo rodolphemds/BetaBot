@@ -55,9 +55,10 @@
     <param name="image_width" value="640" />
     <param name="image_height" value="480" />
     <param name="pixel_format" value="yuyv" />
-    <param name="camera_frame_id" value="usb_cam" />
+    <param name="framerate" value="10" />
+    <param name="camera_name" value="head_camera" />
+    <param name="camera_frame_id" value="usb_cam_link" />
     <param name="io_method" value="mmap"/>
-    <param name="focus_auto" value="true"/>
    </node>
 
   <!-- connection to opencr -->
