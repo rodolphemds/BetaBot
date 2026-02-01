@@ -19,6 +19,16 @@
             </inertial>
     </link>
 
+    <!-- base_footprint est une simplification 2D de la base du robot utilisée principalement pour la navigation, tandis que base_link est une représentation complète en 3D de la base du robot utilisée pour des calculs plus précis. -->
+    <link name="base_footprint">
+    </link>
+    <!-- Joint fixe entre base_link et base_footprint -->
+    <joint name="base_to_footprint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
     <link name="head_link">
         <origin xyz="0.060 0 0.360" rpy="0 0 0" />
     </link>
@@ -79,9 +89,6 @@
     </link>
     <link name="magnetic_field_sensor_link">
         <origin xyz="0 0 0" rpy="0 3.14159265359 0"/>
-    </link>
-    <link name="lidar_link">
-        <origin xyz="0.060 0 0.530" rpy="0 0 0" />
     </link>
 
     <joint name="left_bumper_joint" type="fixed">
@@ -175,13 +182,13 @@
           <axis xyz="1 1 1" />
     </joint>
 
-    <joint name="left_tread_joint" type="continuous">
+    <joint name="left_tread" type="continuous">
         <parent link="base_link"/>
          <child link="left_tread_link"/>
          <origin xyz="-0.178 0.090 0" rpy="0 0 0" />
          <axis xyz="1 1 0" />
     </joint>
-     <joint name="right_tread_joint" type="continuous">
+     <joint name="right_tread" type="continuous">
         <parent link="base_link"/>
          <child link="right_tread_link"/>
          <origin xyz="-0.178 -0.090 0" rpy="0 0 0" />

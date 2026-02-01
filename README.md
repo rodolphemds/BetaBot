@@ -19,5 +19,5 @@ This folder contains the ROS launch files.
 ## ROS_WS
 This folder is the ROS catkin workspace.
 
-##SHELL_SCRIPTS
+## SHELL_SCRIPTS
 This folder contains usefull bash scripts created for the BetaBot.

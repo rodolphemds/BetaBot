@@ -791,21 +791,21 @@ def main():
     global sound_sensor
     sound_sensor = nxt.sensor.Sound(b2, PORT_1)
     rospy.loginfo("Connecting to sound_sensor on NXT2_PORT_1")
-    params_sound_sensor = {'type': 'sound', 'name': 'sound_sensor', 'port': 'PORT_1', 'brick': 'NXT2', 'desired_frequency': 5}
+    params_sound_sensor = {'type': 'sound', 'name': 'sound_sensor', 'port': 'PORT_1', 'brick': 'NXT2', 'desired_frequency': 1}
     components.append(SoundSensor(params_sound_sensor, b2))
     global color_sensor
     color_sensor = nxt.sensor.Color20(b2, PORT_2)
     color_sensor.set_light_color(Type.COLORNONE)
     rospy.loginfo("Connecting to color_sensor on NXT2_PORT_2")
     rospy.loginfo("Subscribing to color_sensor_command publisher to turn on a specified color sensor light.")
-    params_color_sensor = {'type': 'color', 'name': 'color_sensor', 'port': 'PORT_2', 'brick': 'NXT2', 'desired_frequency': 10}
+    params_color_sensor = {'type': 'color', 'name': 'color_sensor', 'port': 'PORT_2', 'brick': 'NXT2', 'desired_frequency': 1}
     components.append(ColorSensor(params_color_sensor, b2))
     global line_following_sensor
     line_following_sensor = nxt.sensor.Light(b2, PORT_3)
     line_following_sensor.set_illuminated(active=True)
     rospy.loginfo("Connecting to line_following_sensor on NXT2_PORT_3")
     rospy.loginfo("Subscribing to line_following_sensor_set_illuminated publisher to control sensor light emission.")
-    params_line_following_sensor = {'type': 'light', 'name': 'line_following_sensor', 'port': 'PORT_3', 'brick': 'NXT2', 'desired_frequency': 10}
+    params_line_following_sensor = {'type': 'light', 'name': 'line_following_sensor', 'port': 'PORT_3', 'brick': 'NXT2', 'desired_frequency': 2}
     components.append(LineFollowingSensor(params_line_following_sensor, b2))
     global rfid_sensor  # the rfid_read program needs to be stored in the NXT2 brick
     rospy.loginfo("Connecting to RFID_sensor on NXT2_PORT_4")
@@ -814,17 +814,17 @@ def main():
     global head_joint
     head_joint = Motor(b2, PORT_A)
     rospy.loginfo("Connecting to head_joint on NX2_PORT_A")
-    params_head_joint = {'type': 'motor', 'name': 'head_joint', 'port': 'PORT_A', 'brick': 'NXT2', 'desired_frequency': 5}
+    params_head_joint = {'type': 'motor', 'name': 'head_joint', 'port': 'PORT_A', 'brick': 'NXT2', 'desired_frequency': 1}
     components.append(HeadJoint(params_head_joint, b2))
     global laser_joint
     laser_joint = Motor(b2, PORT_B)
     rospy.loginfo("Connecting to laser_joint on NXT2_PORT_B")
-    params_laser_joint = {'type': 'motor', 'name': 'laser_joint', 'port': 'PORT_B', 'brick': 'NXT2', 'desired_frequency': 5}
+    params_laser_joint = {'type': 'motor', 'name': 'laser_joint', 'port': 'PORT_B', 'brick': 'NXT2', 'desired_frequency': 1}
     components.append(LaserJoint(params_laser_joint, b2))
     global arms_joint
     arms_joint = Motor(b2, PORT_C)
     rospy.loginfo("Connecting to arms_joint on NXT2_PORT_C")
-    params_arms_joint = {'type': 'motor', 'name': 'arms_joint', 'port': 'PORT_C', 'brick': 'NXT2', 'desired_frequency': 5}
+    params_arms_joint = {'type': 'motor', 'name': 'arms_joint', 'port': 'PORT_C', 'brick': 'NXT2', 'desired_frequency': 1}
     components.append(ArmsJoint(params_arms_joint, b2))
 
     while not rospy.is_shutdown():

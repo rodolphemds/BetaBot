@@ -613,37 +613,37 @@ def main():
     global right_bumper
     right_bumper = Touch(b1, PORT_1)
     rospy.loginfo("Connecting to right_bumper on NXT1_PORT_1")
-    params_right_bumper = {'type': 'touch', 'name': 'right_bumper', 'port': 'PORT_1', 'brick': 'NXT1', 'desired_frequency': 2}
+    params_right_bumper = {'type': 'touch', 'name': 'right_bumper', 'port': 'PORT_1', 'brick': 'NXT1', 'desired_frequency': 1}
     components.append(RightTouchSensor(params_right_bumper, b1))
     global left_bumper
     left_bumper = Touch(b1, PORT_2)
     rospy.loginfo("Connecting to left_bumper on NXT1_PORT_2")
-    params_left_bumper = {'type': 'touch', 'name': 'left_bumper', 'port': 'PORT_2', 'brick': 'NXT1', 'desired_frequency': 2}
+    params_left_bumper = {'type': 'touch', 'name': 'left_bumper', 'port': 'PORT_2', 'brick': 'NXT1', 'desired_frequency': 1}
     components.append(LeftTouchSensor(params_left_bumper, b1))
     global back_bumper
     back_bumper = Touch(b1, PORT_3)
     rospy.loginfo("Connecting to back_bumper on NXT1_PORT_3")
-    params_back_bumper = {'type': 'touch', 'name': 'back_bumper', 'port': 'PORT_3', 'brick': 'NXT1', 'desired_frequency': 2}
+    params_back_bumper = {'type': 'touch', 'name': 'back_bumper', 'port': 'PORT_3', 'brick': 'NXT1', 'desired_frequency': 1}
     components.append(BackTouchSensor(params_back_bumper, b1))
     global ultrasonic_sensor
     ultrasonic_sensor = Ultrasonic(b1, PORT_4)
     rospy.loginfo("Connecting to ultrasonic_sensor on NXT1_PORT_4")
-    params_ultrasonic_sensor = {'type': 'ultrasonic', 'name': 'ultrasonic_sensor', 'port': 'PORT_4', 'brick': 'NXT1', 'desired_frequency': 3}
+    params_ultrasonic_sensor = {'type': 'ultrasonic', 'name': 'ultrasonic_sensor', 'port': 'PORT_4', 'brick': 'NXT1', 'desired_frequency': 1}
     components.append(UltrasonicSensor(params_ultrasonic_sensor, b1))
     global right_tread
     right_tread = Motor(b1, PORT_A)
     rospy.loginfo("Connecting to right_tread on NXT1_PORT_A")
-    params_right_tread = {'type': 'motor', 'name': 'right_tread', 'port': 'PORT_A', 'brick': 'NXT1', 'desired_frequency': 20}
+    params_right_tread = {'type': 'motor', 'name': 'right_tread', 'port': 'PORT_A', 'brick': 'NXT1', 'desired_frequency': 2}
     components.append(RightTreadMotor(params_right_tread, b1))
     global torso_joint
     torso_joint = Motor(b1, PORT_B)
     rospy.loginfo("Connecting to torso_joint on NXT1_PORT_B")
-    params_torso_joint = {'type': 'motor', 'name': 'torso_joint', 'port': 'PORT_B', 'brick': 'NXT1', 'desired_frequency': 10}
+    params_torso_joint = {'type': 'motor', 'name': 'torso_joint', 'port': 'PORT_B', 'brick': 'NXT1', 'desired_frequency': 1}
     components.append(TorsoJoint(params_torso_joint, b1))
     global left_tread
     left_tread = Motor(b1, PORT_C)
     rospy.loginfo("Connecting to left_tread on NXT1_PORT_C")
-    params_left_tread = {'type': 'motor', 'name': 'left_tread', 'port': 'PORT_C', 'brick': 'NXT1', 'desired_frequency': 20}
+    params_left_tread = {'type': 'motor', 'name': 'left_tread', 'port': 'PORT_C', 'brick': 'NXT1', 'desired_frequency': 2}
     components.append(LeftTreadMotor(params_left_tread, b1))
 
     while not rospy.is_shutdown():

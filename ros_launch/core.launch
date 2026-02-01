@@ -59,6 +59,7 @@
     <param name="camera_name" value="head_camera" />
     <param name="camera_frame_id" value="usb_cam_link" />
     <param name="io_method" value="mmap"/>
+    <param name="focus_auto" value="true"/>
    </node>
 
   <!-- connection to opencr -->
