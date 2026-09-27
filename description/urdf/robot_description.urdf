@@ -5,7 +5,7 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <visual>
             <geometry>
-             <mesh filename="/etc/description/meshes/robot_3d_model.dae"/>
+             <mesh filename="/betabot/description/meshes/robot_3d_model.dae"/>
             </geometry>
         </visual>
         <collision>
@@ -40,6 +40,9 @@
     </link>
     <link name="laser_link">
         <origin xyz="0.090 0.065 0.250" rpy="0 0 0" />
+    </link>
+    <link name="lidar_link">
+        <origin xyz="0.060 0 0.530" rpy="0 0 0" />
     </link>
     <link name="left_tread_link">
         <origin xyz="-0.178 0.090 0" rpy="0 0 0" />

@@ -12,10 +12,10 @@ cd /betabot/shell_scripts/
 sudo ./update_os.sh
 }
 
-update_filesystem()
+update_repository()
 {
 cd /betabot/shell_scripts/
-sudo ./update_filesystem.sh
+sudo ./update_repository.sh
 }
 
 end()
@@ -27,5 +27,5 @@ exit
 
 begin
 update_os
-update_filesystem
+update_repository
 end

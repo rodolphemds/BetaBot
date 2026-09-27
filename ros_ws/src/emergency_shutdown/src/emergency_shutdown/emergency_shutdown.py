@@ -47,27 +47,26 @@ def main():
     callback_handle_frequency = 10.0
     last_callback_handle = rospy.Time.now()
 
+    last_request = [None]
     def shutdown_cmd(msg):
+        last_request[0] = msg.data
         if msg.data == "LOW_BATTERY":
             rospy.logwarn("An emergency shutdown is requested to protect battery life.")
             rospy.logwarn("Please find an other power source within 10 sec to abort robot shutdown.")
             sleep(10)
-            if msg.data == "LOW_BATTERY":
+            if last_request[0] == "LOW_BATTERY":
                 rospy.logwarn("Do not forget to manually kill the power switch on the robot base.")
                 os.system("shutdown now")
         if msg.data == "ROOT_ORDER":
             rospy.logwarn("An emergency shutdown is commanded by root order.")
             rospy.logwarn('You have 5 sec to stop publishing "ROOT_ORDER" on the emergency_shutdown_request publisher if you want to abort.')
             sleep(5)
-            if msg.data == "ROOT_ORDER":
+            if last_request[0] == "ROOT_ORDER":
                 os.system("shutdown now")
 
+    sub = rospy.Subscriber('emergency_shutdown_request', String, shutdown_cmd, None, 2)
     while not rospy.is_shutdown():
-        now = rospy.Time.now()
-        if (now - last_callback_handle).to_sec() > 1.0/callback_handle_frequency:
-            last_callback_handle = now
-            sub = rospy.Subscriber('emergency_shutdown_request', String, shutdown_cmd, None, 2)
-            rospy.sleep(0.01)
+        rospy.sleep(0.01)
 
 if __name__ == '__main__':
     main()

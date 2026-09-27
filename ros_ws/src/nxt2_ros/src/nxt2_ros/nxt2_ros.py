@@ -421,7 +421,7 @@ class HeadJoint(Device):
             elif power < -self.power_max:
                 power = -self.power_max
             self.power = int(power) # if power < 0 the motor will rotate self.rotations deg in reverse
-            self.rotations = int(msg.rotations) * 180 / math.pi # convert msg.rotations from rad into deg 
+            self.rotations = int(msg.rotations * 180 / math.pi) # convert msg.rotations from rad into deg 
             self.brake = msg.brake
 
     def trigger(self):
@@ -553,7 +553,7 @@ class LaserJoint(Device):
             elif power < -self.power_max:
                 power = -self.power_max
             self.power = int(power) # if power < 0 the motor will rotate self.rotations deg in reverse
-            self.rotations = int(msg.rotations) * 180 / math.pi # convert msg.rotations from rad into deg 
+            self.rotations = int(msg.rotations * 180 / math.pi) # convert msg.rotations from rad into deg 
             self.brake = msg.brake
 
     def trigger(self):
@@ -685,7 +685,7 @@ class ArmsJoint(Device):
             elif power < -self.power_max:
                 power = -self.power_max
             self.power = int(power) # if power < 0 the motor will rotate self.rotations deg in reverse
-            self.rotations = int(msg.rotations) * 180 / math.pi # convert msg.rotations from rad into deg 
+            self.rotations = int(msg.rotations * 180 / math.pi) # convert msg.rotations from rad into deg 
             self.brake = msg.brake
 
     def trigger(self):

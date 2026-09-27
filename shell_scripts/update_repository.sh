@@ -1,7 +1,6 @@
 #!/bin/bash
 
 github_user_account="rodolphemds"
-github_user_token="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" # this token will expire on 08/14/2022
 github_repository="betabot"
 
 
@@ -21,7 +20,7 @@ download_new_filesystem()
 {
 echo "Cloning repository from GitHub..."
 cd /;
-git clone https://${github_user_account}:${github_user_token}@github.com/${github_user_account}/${github_repository}.git;
+git clone https://${github_user_account}@github.com/${github_user_account}/${github_repository}.git;
 # Making scripts executable
 sudo chmod -R +x /betabot/shell_scripts/*;
 sudo chmod -R +x /betabot/python_scripts/*;

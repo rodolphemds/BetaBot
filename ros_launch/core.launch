@@ -37,7 +37,7 @@
     <param name="output_frame" value="odom_combined"/>
     <param name="freq" value="30.0"/>
     <param name="odom_used" value="true"/>
-    <param name="imu_used" value="true"/>
+    <param name="imu_used" value="false"/>
     <param name="vo_used" value="false"/>
   </node>
 
@@ -72,10 +72,10 @@
  <node name="lidar" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_node" args="LD06" output="screen" >
     <param name="product_name" value="LDLiDAR_LD06"/>
     <param name="topic_name" value="scan"/>
-    <param name="frame_id" value="base_laser"/>
+    <param name="frame_id" value="laser_link"/>
     <param name="port_name" value="/dev/ttyS1"/>
     <param name="port_baudrate" value="230400"/>
-    <param name="laser_scan_dir" value="Counterclockwise"/>
+    <param name="laser_scan_dir" value="true" type="bool"/>
     <param name="enable_angle_crop_func" value="false"/>
     <param name="angle_crop_min" value="0.000000"/>
     <param name="angle_crop_max" value="0.000000"/>

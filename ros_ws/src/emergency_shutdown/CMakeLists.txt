@@ -13,3 +13,7 @@ catkin_python_setup()
 catkin_package(
   CATKIN_DEPENDS rospy
 )
+
+catkin_install_python(PROGRAMS
+  src/emergency_shutdown/emergency_shutdown.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

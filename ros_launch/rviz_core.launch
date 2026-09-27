@@ -1,4 +1,4 @@
 <launch>
   <include file="/betabot/ros_launch/core.launch"/>
-  <node name="rviz" pkg="rviz" type="rviz"  args="-d /description/rviz/core.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz"  args="-d /betabot/ros_ws/src/ldlidar_stl/rviz/ldlidar_kinetic_melodic.rviz"/>
 </launch>
