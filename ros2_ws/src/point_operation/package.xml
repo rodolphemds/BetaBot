@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<package format="3">
+  <name>point_operation</name>
+  <version>1.2.1</version>
+  <description>
+    The point_operation node is that you can insert goal position include distance x-axis,
+    y-axis and angluar z-axis.
+  </description>
+  <license>Apache 2.0</license>
+  <author email="kkjong@robotis.com">Gilbert</author>
+  <author email="rodolphe.matias@icloud.com">Rodolphe</author>
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe</maintainer>
+  <url type="website">http://wiki.ros.org/turtlebot3_example</url>
+  <url type="repository">https://github.com/ROBOTIS-GIT/turtlebot3</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+
+  <exec_depend>ros2launch</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

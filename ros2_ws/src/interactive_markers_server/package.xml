@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<package format="3">
+  <name>interactive_markers_server</name>
+  <version>1.2.1</version>
+  <description>
+    The interactive_markers node is that you can control the robot front and back side
+    or rotate to goal position.
+  </description>
+  <license>Apache 2.0</license>
+  <author email="kkjong@robotis.com">Gilbert</author>
+  <author email="rodolphe.matias@icloud.com">Rodolphe</author>
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe</maintainer>
+  <url type="website">http://wiki.ros.org/turtlebot3_example</url>
+  <url type="repository">https://github.com/ROBOTIS-GIT/turtlebot3</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>interactive_markers</depend>
+
+  <exec_depend>ros2launch</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

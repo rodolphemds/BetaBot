@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<package format="3">
+  <name>nxt_python</name>
+  <version>1.1.0</version>
+  <description>
+    This package automatically downloads version 1.1.2 of the
+    NXT-python library. NXT-python is a library for
+    controlling a LEGO NXT robot using the Python programming
+    language. It can communicate using either USB or Bluetooth. It is
+    available under the Free Software Foundation's GPL license.
+  </description>
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe Matias de Sousa</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
