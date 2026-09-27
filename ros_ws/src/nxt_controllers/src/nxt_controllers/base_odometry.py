@@ -45,6 +45,9 @@ from tf_conversions import posemath
 
 PUBLISH_TF = False
 
+def addDelta(frame, twist):
+    return frame * Frame(Rotation.RotZ(twist.rot.z()), twist.vel.x(), twist.vel.y(), 0)
+
 
 class BaseOdometry:
     def __init__(self):
@@ -95,8 +98,8 @@ class BaseOdometry:
                 # Create transform message
                 t = geometry_msgs.msg.TransformStamped()
                 t.header.stamp = rospy.Time.now()
-                t.header.frame_id = "base_link"
-                t.child_frame_id = "odom"
+                t.header.frame_id = "odom"
+                t.child_frame_id = "base_link"
                 t.transform.translation.x = self.pose.p.x()
                 t.transform.translation.y = self.pose.p.y()
                 t.transform.translation.z = self.pose.p.z()
