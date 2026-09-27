@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<package format="3">
+  <name>base_simple_teleop</name>
+  <version>1.1.0</version>
+  <description>
+    The base_simple_teleop package provides a keyboard interface to control robot motors.
+  </description>
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe Matias de Sousa</maintainer>
+  <author>Rodolphe Matias de Sousa</author>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>geometry_msgs</depend>
+
+  <exec_depend>ros2launch</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

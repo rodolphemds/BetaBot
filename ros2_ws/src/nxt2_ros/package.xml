@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<package format="3">
+  <name>nxt2_ros</name>
+  <version>5.1.0</version>
+  <description>
+    The nxt2_ros package provides the bindings between the NXT world
+    and the ROS world on the robot. This package will create a ROS topic
+    for each NXT2 sensor, and publish the sensor's data on this topic. The
+    package also creates a topic for each NXT2 motor, which allows you
+    to command the motor from ROS. The nxt2_ros bindings talk directly
+    to the NXT2 brick over USB.
+  </description>
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe Matias de Sousa</maintainer>
+  <author>Rodolphe Matias de Sousa</author>
+  <license>BSD</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nxt_msgs</depend>
+  <depend>nxt_python</depend>
+
+  <exec_depend>python3-nxt</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

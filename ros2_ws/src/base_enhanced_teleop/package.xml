@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<package format="3">
+  <name>base_enhanced_teleop</name>
+  <version>1.0.0</version>
+  <description>
+    Provides teleoperation to control robot base using keyboard.
+    Based on turtlebot3_teleop package from Robotis.
+  </description>
+  <license>BSD</license>
+  <author>Rodolphe Matias de Sousa</author>
+  <maintainer email="rodolphe.matias@icloud.com">Rodolphe Matias de Sousa</maintainer>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+
+  <exec_depend>ros2launch</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
